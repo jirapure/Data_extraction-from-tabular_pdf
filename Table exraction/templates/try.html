@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Summarizer</title>
+</head>
+<body>
+    <h1>PDF Summarizer</h1>
+    {% if message %}
+        <p style="color: red;">{{ message }}</p>
+    {% endif %}
+
+    {% if form %}
+        <form method="POST" enctype="multipart/form-data" action="/">
+            <label for="pdf_file">Upload PDF:</label>
+            <input type="file" name="pdf_file" id="pdf_file">
+            <br><br>
+            <!--<label for="keyword">Search Keyword:</label>
+            <input type="text" size="50" name="keywords" id="keywords">
+            <br><br>-->
+            <label for="sentence">Enter Sentence (optional):</label>
+            <textarea id="sentence" name="sentence" rows="4" cols="50"></textarea>
+            <br><br>
+            <input type="submit" value="Summarize">
+        </form>
+        {% else %}
+        {% if summary %}
+            <h2>Summary:</h2>
+            <p>{{ summary| replace('\n', '<br>') | safe }}</p>
+        {% endif %}
+
+        {% if extracted_data %}
+            <h2>Extracted Data:</h2>
+            <pre>
+            {% for data in extracted_data %}
+                {{ data | replace('\n', '<br>') | safe }}<br>
+            {% endfor %}
+            </pre>
+        {% endif %}
+    {% endif %}
+    </body>
+    </html>
+    
